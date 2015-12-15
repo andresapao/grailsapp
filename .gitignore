@@ -1,7 +1,6 @@
-/jogoAnimais/.classpath
-/jogoAnimais/.project
-/jogoAnimais/application.properties
-/jogoAnimais/grailsw
-/jogoAnimais/grailsw.bat
 target
-test
+grailsw.bat
+.classpath
+.project
+application.properties
+grailsw
