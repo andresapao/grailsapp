@@ -9,7 +9,7 @@ class UrlMappings {
 
         "/"(view:"/index")
         "500"(view:'/error')
-        "animais/test"(controller: "animais", action: "addNode")
+        //"animais/test"(controller: "animais", action: "addNode")
 		
 	}
 }

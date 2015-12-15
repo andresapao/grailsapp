@@ -14,12 +14,10 @@ class AnimaisController {
 	def addNode()
 	{
 		
-		log.info "add node"
-		log.info params
-		/*
-		println 'addNode method'
-		render 'ok'			
-*/
+		println "add node"
+		println params
+		render 'OK'
+
 	}
 
 }
