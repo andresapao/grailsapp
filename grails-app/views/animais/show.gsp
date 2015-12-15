@@ -6,14 +6,13 @@
 		<title>Jogo dos Animais</title>
 	</head>
 	<body>
-		<g:form controller="animais" action="addNode">	
+		<g:form controller="animais" action="addNode" params="['index': curIndex]">	
 			<div>Pense em um animal</div>
 <!--			
 			<g:textField name="myField" value="${myValue}" />
 
 			<g:actionSubmit value="OK, próximo"  />
 -->
-			<g:textField name="test" value="${animalList}" />	
 			
 			<div>
 				<label for="questionToUser">Questão:</label>
@@ -21,7 +20,7 @@
 			</div>
 			 
 			<input type="submit" value="Submit">	
--->				
+	
 			<g:each in="${animalList}" var="row" status="i">
 				<h3> ${row.nodeDescription}, ${row.yesAnswerNode}</h3>
 				<br/>
