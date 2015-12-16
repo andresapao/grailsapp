@@ -9,24 +9,35 @@ class AnimaisController {
 		def curQuestion
 		def currentNode
 		def previousQuestions
-
-
-//		currentNode = animaisService.getCurrentNode(params)
-
-		log.info "index - params"
-		log.info params
+		def isLastQuestion
 
 
 		previousNode = params.index
-		currentNode = params.curNode
+		currentNode = params.int('curNode')
 		curQuestion = params.curQuestion
+
+		log.info "index - params"
+		log.info params
+		log.info currentNode
+
 		if(curQuestion == null)
 		{
 			curQuestion = "Pense em um animal"
 		}
+
 		if(params.lastQuestion)
 		{
-			lastQuestion = "Em que animal voce pensou"
+			curQuestion = "Em que animal voce pensou"
+			render(view: "lastQuestion", model: [curQuestion:curQuestion])		
+
+		}
+		else
+		{
+			render(view: "show", model: [animalList: animalsTreeObj, 
+										 curIndex: currentNode, 
+										 curQuestion: curQuestion, 
+										 lastQuestion: isLastQuestion,
+										 previousQuestions:previousQuestions])		
 		}
 /*
 		if(previousNode != null && previousNode != '')
@@ -34,19 +45,23 @@ class AnimaisController {
 			previousQuestions = animaisService.fillPreviousQuestions(curQuestion, params.optionsForQuestion)
 		}
 */
-		render(view: "show", model: [animalList: animalsTreeObj, curIndex: currentNode, curQuestion: curQuestion, previousQuestions:previousQuestions])		
 	}
 	
 	def addNode()
 	{
 		
-		log.info "addNode - params"
-		log.info params
 
 		def nextNode
 		def curNode = params.int('index')
+		def curQuestion
 
-		nextNode = animaisService.getNextNode(curNode, params.questionToUser)
+		log.info "addNode - params"
+		log.info params
+		log.info params.index
+		log.info curNode		
+		log.info params.optionsForQuestion
+
+		nextNode = animaisService.getNextNode(curNode, params.int('optionsForQuestion'))
 		log.info "addNode - retorno"
 		log.info nextNode
 
@@ -56,10 +71,21 @@ class AnimaisController {
 		}
 		else
 		{
-			forward(action:'index', params: ['lastQuestion': true])			
+			curQuestion = "Em que animal voce pensou"
+			render(view: "lastQuestion", model: [curQuestion:curQuestion, curNode: 'curNode'])		
 		}
-
-
 	}
+	def submitFinalAnswer()
+	{
+		log.info 'finalAnswer'
+		log.info params
+		render(view: "lastQuestion", model: [showDivTip: true])	
+	}
+	def submitTipForAnswer()
+	{
+		log.info 'tip'
+		log.info params
+
+	}	
 
 }

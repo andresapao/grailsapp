@@ -8,16 +8,11 @@
 	<body>
 		<g:form controller="animais" action="addNode" params="['index': curIndex]">	
 			<div>${curIndex} - ${curQuestion}</div>
-			
-<!--			
-			<g:textField name="myField" value="${myValue}" />
-
-			<g:actionSubmit value="OK, próximo"  />
--->
-
+			<g:if test="${!lastQuestion}">			
 				<g:radioGroup name="optionsForQuestion" labels="['Sim','Nao']" values="[1,0]" >
 					<p>${it.radio} ${it.label} </p>
 				</g:radioGroup>			
+			</g:if>
 			<g:if test="${previousQuestions}">
 
 				<div id="previousSteps">
@@ -31,12 +26,18 @@
 				</div>
 			</g:if>			
 			<g:if test="${lastQuestion}">			
-				<div id="finalAnswer">
-					<label for="questionToUser">Questão:</label>
-					<g:textField name="questionToUser" maxlength="50"/>
+				<div id="finalStep">
+					<g:textField name="finalAnswer" value="${finalAnswer}"/>
+					<g:if test="${finalAnswer}">			
+						<g:textField name="tipToFinalAnswer"/>					
+					</g:if>
+					<g:submitButton name="submitFinalAnswer" value="Finalizar" />
 				</div>
 			</g:if>						
-			<g:submitButton name="Próximo" />
+			<g:if test="${!lastQuestion}">						
+				<g:submitButton name="addNode" value="Próximo" />			
+			</g:if>							
+
 <!--						 
 			<input type="submit" value="Submit">	
 	

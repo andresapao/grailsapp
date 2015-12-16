@@ -102,12 +102,12 @@ log4j.main = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
+    info "grails.app"    
     appenders {
-        rollingFile name: "stacktrace", maxFileSize: 1024,    
-                    file:'c:/grailsLog.log'
+        file name:'file', file:'e:/mylog.log'
     }
     root {
-        debug 'stdout', 'file'
+        error 'stdout', 'file'
     }
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
