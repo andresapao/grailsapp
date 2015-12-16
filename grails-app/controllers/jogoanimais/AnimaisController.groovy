@@ -44,14 +44,15 @@ class AnimaisController {
 		log.info params
 
 		def nextNode
+		def curNode = params.int('index')
 
-		nextNode = animaisService.getNextNode(params.int('index'), params.questionToUser)
+		nextNode = animaisService.getNextNode(curNode, params.questionToUser)
 		log.info "addNode - retorno"
 		log.info nextNode
 
 		if(nextNode != null)
 		{
-			forward(action:'index', params: ['curNode': nextNode.nodeId, 'curQuestion': nextNode.nodeDescription])			
+			forward(action:'index', params: ['curNode': nextNode.nodeId, 'previousNode': curNode, curQuestion: nextNode.nodeDescription])			
 		}
 		else
 		{

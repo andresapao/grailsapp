@@ -103,7 +103,8 @@ log4j.main = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
     appenders {
-        file name:'file', file:'e:/mylog.log'
+        rollingFile name: "stacktrace", maxFileSize: 1024,    
+                    file:'c:/grailsLog.log'
     }
     root {
         debug 'stdout', 'file'
