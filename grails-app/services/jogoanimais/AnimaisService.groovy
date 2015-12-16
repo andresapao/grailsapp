@@ -4,46 +4,65 @@ import grails.transaction.Transactional
 
 @Transactional
 class AnimaisService {
-
+	def static previousQuestions
     def serviceMethod() {
 
-    }
-    def getCurrentNode(params)
-    {
-		def currentNode
-		if(params.currentNode != null)
-		{
-			currentNode = params.currentNode
-		}
-		else
-		{
-			currentNode = 1
-		}    
-    	[currentNode]
     }
     def getNextNode(previousNodeId, answer)
     {
     	def nodeId
+
     	if(previousNodeId == null || previousNodeId == '')
     	{
     		nodeId = 1
     	}
     	else
     	{
-    		def nextObj = AnimaisTreeMap.get(previousNodeId)    	
-	    	if (answer == 1)
-	    	{
-	    		nodeId = nextObj.yesAnswerNode
-	    	}
-	    	else
-	    	{
-	    		nodeId = nextObj.noAnswerNode
-	    	}
+    		nodeId = previousNodeId
+    	log.info 'getNextNode1'
+    	log.info nodeId
+
+    		def nextObj = AnimaisTreeMap.get(nodeId)    	
+	    	log.info 'nextObj'
+    		log.info nextObj    		
+    		if(nextObj != null)
+    		{
+		    	if (answer == 1)
+		    	{
+		    		nodeId = nextObj.yesAnswerNode
+		    	}
+		    	else
+		    	{
+		    		nodeId = nextObj.noAnswerNode
+		    	}    			
+    		}
+    		else
+    		{
+    			nodeId = null
+    		}
+
     	}
     	log.info 'getNextNode'
     	log.info nodeId
-    	def obj = AnimaisTreeMap.get(nodeId)
-    	[obj]
-    }
+    	if(nodeId != null)
+    	{
+	    	def obj = AnimaisTreeMap.get(nodeId)
+	    	[obj]
+    	}
+    	else
+		{
+			[]
 
+	    }
+    }
+    def fillPreviousQuestions(curQuestion, optionAnswered)
+    {
+    	if(previousQuestions == null)
+    	{
+    		previousQuestions = []
+    	}
+    	previousQuestions.push('question':curQuestion, 'answer':'sim')
+    	[previousQuestions]
+    	
+    }
 }

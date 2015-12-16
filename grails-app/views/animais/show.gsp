@@ -14,19 +14,28 @@
 
 			<g:actionSubmit value="OK, próximo"  />
 -->
-			<g:radioGroup name="optionsForQuestion" labels="['Sim','Nao']" values="[1,0]" >
-				<p>${it.radio} ${it.label} </p>
-			</g:radioGroup>			
-			<div id="finalQuestion">
-				<label for="questionToUser">Questão:</label>
-				<g:textField name="questionToUser" maxlength="50"/>
-			</div>
-			<div id="previousSteps">
-				<g:each in="${previousQuestions}" var="row" status="i">
-					<input> ${row.question}, ${row.answer}</input>
-					<br/>
-				</g:each>		
-			</div>
+
+				<g:radioGroup name="optionsForQuestion" labels="['Sim','Nao']" values="[1,0]" >
+					<p>${it.radio} ${it.label} </p>
+				</g:radioGroup>			
+			<g:if test="${previousQuestions}">
+
+				<div id="previousSteps">
+					<g:each in="${previousQuestions}" var="row" status="i">
+						<div>
+							<label>${row.question}</label>
+							<label>${row.answer}</label>							
+						</div>
+						<br/>
+					</g:each>		
+				</div>
+			</g:if>			
+			<g:if test="${lastQuestion}">			
+				<div id="finalAnswer">
+					<label for="questionToUser">Questão:</label>
+					<g:textField name="questionToUser" maxlength="50"/>
+				</div>
+			</g:if>						
 			<g:submitButton name="Próximo" />
 <!--						 
 			<input type="submit" value="Submit">	

@@ -2,27 +2,39 @@ package jogoanimais
 
 class AnimaisController {
 	def animaisService
+	def previousNode	
+
     def index() { 
-		def  animalsTreeObj =  AnimaisTreeMap.list()
+		def animalsTreeObj =  AnimaisTreeMap.list()
 		def curQuestion
 		def currentNode
+		def previousQuestions
+
 
 //		currentNode = animaisService.getCurrentNode(params)
+
+		log.info "index - params"
+		log.info params
+
+
+		previousNode = params.index
 		currentNode = params.curNode
 		curQuestion = params.curQuestion
 		if(curQuestion == null)
 		{
 			curQuestion = "Pense em um animal"
 		}
-		else
+		if(params.lastQuestion)
 		{
-			curQuestion = params.curQuestion
+			lastQuestion = "Em que animal voce pensou"
 		}
-		log.info 'index'
-		log.info curQuestion
-		log.info currentNode
-		render(view: "show", model: [animalList: animalsTreeObj, curIndex: currentNode, curQuestion: curQuestion])		
-//		render "Hello World!"	
+/*
+		if(previousNode != null && previousNode != '')
+		{
+			previousQuestions = animaisService.fillPreviousQuestions(curQuestion, params.optionsForQuestion)
+		}
+*/
+		render(view: "show", model: [animalList: animalsTreeObj, curIndex: currentNode, curQuestion: curQuestion, previousQuestions:previousQuestions])		
 	}
 	
 	def addNode()
@@ -33,13 +45,19 @@ class AnimaisController {
 
 		def nextNode
 
-		nextNode = animaisService.getNextNode(params.index, params.questionToUser)
+		nextNode = animaisService.getNextNode(params.int('index'), params.questionToUser)
 		log.info "addNode - retorno"
 		log.info nextNode
 
+		if(nextNode != null)
+		{
+			forward(action:'index', params: ['curNode': nextNode.nodeId, 'curQuestion': nextNode.nodeDescription])			
+		}
+		else
+		{
+			forward(action:'index', params: ['lastQuestion': true])			
+		}
 
-//		render 'OK'
-		forward(action:'index', params: ['curNode': nextNode.nodeId, 'curQuestion': nextNode.nodeDescription])
 
 	}
 
