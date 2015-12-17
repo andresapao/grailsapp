@@ -62,23 +62,34 @@ class AnimaisController {
 		log.info "addNode - retorno"
 		log.info nextNode
 
+		//TODO: split "if" clause into method to treat when is final act or there's following questions
 		if(nextNode != null)
 		{
-			curQuestion = "O animal que você pensou " + nextNode.nodeDescription + " ?"
+			if(nextNode.nodeInfo == AnimaisTreeMap.ANIMAL)
+			{
+				curQuestion = "O animal que você pensou é " + nextNode.nodeDescription + " ?"				
+			}
+			else
+			{
+				curQuestion = "O animal que você pensou " + nextNode.nodeDescription + " ?"								
+			}
+
 			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			
 		}
 		else
 		{
+			def finished = false
 			if(params.int('optionsForQuestion') == 1)
 			{
 				curQuestion = "Acertei de novo"				
+				finished = true
 			}
 			else
 			{
-				curQuestion = "Em que animal voce pensou?"				
+				curQuestion = "Em que animal voce pensou?"
 			}
 
-			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode])
+			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode, finished: finished])
 		}
 	}
 	def submitFinalAnswer()

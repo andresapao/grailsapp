@@ -4,15 +4,21 @@ class BootStrap {
 	def init = { servletContext ->
 		if(AnimaisTreeMap.count()==0)
 		{
-			def noAnswer =  new AnimaisTreeMap(nodeDescription:"é macaco?", 
+			def noAnswer =  new AnimaisTreeMap(nodeDescription:"macaco", 
+											   nodeInfo: AnimaisTreeMap.ANIMAL,
 								   			   noAnswerNode:null, 
 											   yesAnswerNode:null)
 			noAnswer.save(failOnError: true)
-			def yesAnswer =  new AnimaisTreeMap(nodeDescription:"é tubarão?", 
-								   			   noAnswerNode:null, 
-											   yesAnswerNode:null)
+			def yesAnswer =  new AnimaisTreeMap(nodeDescription:"tubarão", 
+											    nodeInfo: AnimaisTreeMap.ANIMAL,
+								   			    noAnswerNode:null, 
+											    yesAnswerNode:null)
 			yesAnswer.save(failOnError: true)			
-			new AnimaisTreeMap(nodeDescription:"vive na água?", noAnswerNode: noAnswer, yesAnswerNode:  yesAnswer).
+
+			new AnimaisTreeMap(nodeDescription:"vive na água", 
+							   nodeInfo: AnimaisTreeMap.ACTION,
+							   noAnswerNode: noAnswer, 
+							   yesAnswerNode:  yesAnswer).
 							   save(failOnError: true)			
 		}
     }	

@@ -85,9 +85,14 @@ class AnimaisService {
         log.info 'answerField'
         log.info answerField                
 
-        def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, yesAnswerNode:null, noAnswerNode:null)
+        def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, 
+                                                nodeInfo: AnimaisTreeMap.ANIMAL,
+                                                yesAnswerNode:null, 
+                                                noAnswerNode:null)
         def finalAnswerPersisted = finalAnswerRow.save(failOnError: true)
+
         def tipAnswerRow = new AnimaisTreeMap(nodeDescription: tipToFinalAnswer, 
+                                              nodeInfo: AnimaisTreeMap.ACTION,
                                               yesAnswerNode:finalAnswerPersisted, 
                                               noAnswerNode:rootObj)
         def tipAnswerPersisted = tipAnswerRow.save(failOnError: true)
@@ -98,5 +103,13 @@ class AnimaisService {
     def reset()
     {
         AnimaisTreeMap.clear()
+    }
+    def mountQuestionByUserOption
+    {
+
+    }
+    def mountQuestionByNodeInfo
+    {
+
     }
 }

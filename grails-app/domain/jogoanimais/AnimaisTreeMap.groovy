@@ -1,9 +1,16 @@
 package jogoanimais
 
 import grails.rest.*
+
 @Resource(uri='/animals', formats='json')
+
 class AnimaisTreeMap {
+
+    static final int ANIMAL  = 1
+    static final int ACTION = 2
+
    String nodeDescription
+   int nodeInfo
    AnimaisTreeMap yesAnswerNode
    AnimaisTreeMap noAnswerNode
    
