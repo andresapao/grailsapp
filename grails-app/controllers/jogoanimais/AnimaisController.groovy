@@ -16,11 +16,11 @@ class AnimaisController {
 		currentNode = params.int('curNode')
 		curQuestion = params.curQuestion
 		isFirstQuestion = false
-
+/*
 		log.info "index - params"
 		log.info params
 		log.info currentNode
-
+*/
 		if(curQuestion == null)
 		{
 			curQuestion = "Pense em um animal"
@@ -36,7 +36,6 @@ class AnimaisController {
 										 curQuestion: curQuestion, 
 										 isFirstQuestion: isFirstQuestion,
 										 previousQuestions:previousQuestions])		
-
 /*
 		if(previousNode != null && previousNode != '')
 		{
@@ -47,20 +46,20 @@ class AnimaisController {
 	
 	def addNode()
 	{
-		
-
 		def nextNode
 		def curNode = params.int('index')
 		def curQuestion
-
+/*
 		log.info "addNode - params"
 		log.info params
 		log.info curNode		
-
+*/
 		def userChoice = params.int('optionsForQuestion')
 		nextNode = animaisService.getNextNode(curNode, userChoice)
+/*		
 		log.info "addNode - retorno"
 		log.info nextNode
+*/
 
 		//TODO: split "if" clause into method to treat when is final act or there's following questions
 		if(nextNode != null)
@@ -94,10 +93,16 @@ class AnimaisController {
 	}
 	def submitFinalAnswer()
 	{
+		String ans 
+		ans = params.finalAnswer as String
+
 		log.info 'finalAnswer'
 		log.info params
+		log.info ans
+		log.info params.finalAnswer.getClass()
 
-		def curQuestion = "um " + params.finalAnswer + " ______  mas um  não "
+		def previousAnimal = animaisService.getAnimalDesc(params.int('rootNode'))
+		def curQuestion = "um " + ans + " ______  mas um " + previousAnimal.nodeDescription + " não "
 		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), 
 											 curQuestion: curQuestion, finalAnswer: params.finalAnswer])	
 	}
@@ -108,11 +113,14 @@ class AnimaisController {
 	}
 	def submitTipForAnswer()
 	{
-		log.info 'tip'
+		log.info 'tipAnswer'
 		log.info params
 
 		animaisService.insertNodesToAnswer(params.long('rootNode'), params.tipToFinalAnswer, params.finalAnswer)
 		redirect(action:'index')
 	}	
-
+	def backToStart()
+	{
+		redirect(action:'index')		
+	}
 }

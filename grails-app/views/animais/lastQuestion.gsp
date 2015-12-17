@@ -6,9 +6,12 @@
 		<title>Jogo dos Animais</title>
 	</head>
 	<body>
-		<g:form controller="animais" params="['rootNode': rootNode, 'finalAnswer':finalAnswer, 'userChoice': userChoice]">	
+		<g:form controller="animais" params="['rootNode': rootNode, 'finalAnswer':finalAnswer]">	
 			<div>${curQuestion}</div>		
-			<div>${rootNode}</div>
+
+			<g:if test="${finished}">			
+				<g:actionSubmit action="backToStart" value="Voltar" />
+			</g:if>			
 			<g:if test="${!finished}">
 				<g:if test="${!showDivTip}">			
 					<g:textField name="finalAnswer" value="${finalAnswer}"/>

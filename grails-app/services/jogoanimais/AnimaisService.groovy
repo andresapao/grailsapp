@@ -112,4 +112,8 @@ class AnimaisService {
     {
 
     }
+    def getAnimalDesc(animalId)
+    {
+        return AnimaisTreeMap.get(animalId)             
+    }
 }
