@@ -102,13 +102,14 @@ class AnimaisController {
 		log.info params.finalAnswer.getClass()
 
 		def previousAnimal = animaisService.getAnimalDesc(params.int('rootNode'))
-		def curQuestion = "um " + ans + " ______  mas um " + previousAnimal.nodeDescription + " não "
+		def curQuestion = "um(a) " + ans + " ______  mas um(a) " + previousAnimal.nodeDescription + " não "
 		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), 
 											 curQuestion: curQuestion, finalAnswer: params.finalAnswer])	
 	}
 	def reset()
 	{
 		animaisService.reset()
+		animaisService.initializeDB()
 		redirect(action:'index')		
 	}
 	def submitTipForAnswer()

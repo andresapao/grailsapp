@@ -1,9 +1,11 @@
 import jogoanimais.*
 
 class BootStrap {
+	def animaisService	
 	def init = { servletContext ->
 		if(AnimaisTreeMap.count()==0)
 		{
+			/*
 			def noAnswer =  new AnimaisTreeMap(nodeDescription:"macaco", 
 											   nodeInfo: AnimaisTreeMap.ANIMAL,
 								   			   noAnswerNode:null, 
@@ -20,6 +22,8 @@ class BootStrap {
 							   noAnswerNode: noAnswer, 
 							   yesAnswerNode:  yesAnswer).
 							   save(failOnError: true)			
+							   */
+			animaisService.initializeDB()
 		}
     }	
 
