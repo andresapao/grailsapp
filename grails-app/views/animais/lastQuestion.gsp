@@ -6,7 +6,7 @@
 		<title>Jogo dos Animais</title>
 	</head>
 	<body>
-		<g:form controller="animais" params="['rootNode': rootNode, 'finalAnswer':finalAnswer]">	
+		<g:form controller="animais" params="['rootNode': rootNode, 'finalAnswer':finalAnswer, 'userChoice': userChoice]">	
 			<div>${curQuestion}</div>		
 			<div>${rootNode}</div>
 				<g:if test="${!showDivTip}">			

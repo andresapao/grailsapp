@@ -59,7 +59,8 @@ class AnimaisController {
 		log.info params
 		log.info curNode		
 
-		nextNode = animaisService.getNextNode(curNode, params.int('optionsForQuestion'))
+		def userChoice = params.int('optionsForQuestion')
+		nextNode = animaisService.getNextNode(curNode, userChoice)
 		log.info "addNode - retorno"
 		log.info nextNode
 
@@ -70,7 +71,7 @@ class AnimaisController {
 		else
 		{
 			curQuestion = "Em que animal voce pensou"
-			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode])
+			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode, userChoice: userChoice])
 		}
 	}
 	def submitFinalAnswer()
@@ -84,7 +85,7 @@ class AnimaisController {
 	{
 		log.info 'tip'
 		log.info params
-		animaisService.insertNodesToAnswer(params.int('rootNode'), params.tipToFinalAnswer, params.finalAnswer)
+		animaisService.insertNodesToAnswer(params.int('rootNode'), params.tipToFinalAnswer, params.finalAnswer, params.int('userChoice'))
 		render(action:'index')
 	}	
 

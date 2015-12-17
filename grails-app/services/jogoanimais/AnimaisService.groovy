@@ -58,15 +58,19 @@ class AnimaisService {
     	return previousQuestions
     	
     }
-    def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer)
+    def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer, userChoice)
     {
         def rootObj = AnimaisTreeMap.get(rootId)
-        def previousNodeQuery = AnimaisTreeMap.where{noAnswerNode.id == rootId}
+        def answerField = getCorrespondingAnswerField(userChoice)
+        log.info answerField
+        def previousNodeQuery = AnimaisTreeMap.where{"$answerField" == rootObj}
         def previousNode = previousNodeQuery.get()
-
 
         log.info 'previousId'
         log.info previousNode        
+        log.info 'rootObj'
+        log.info rootObj
+
 
 
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, yesAnswerNode:null, noAnswerNode:null)
