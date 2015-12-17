@@ -69,21 +69,24 @@ class AnimaisController {
 		else
 		{
 			curQuestion = "Em que animal voce pensou"
-			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode, userChoice: userChoice])
+			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode])
 		}
 	}
 	def submitFinalAnswer()
 	{
 		log.info 'finalAnswer'
 		log.info params
-		def tipText = "um " + params.finalAnswer + " ______ "
-		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), tipText: tipText, finalAnswer: params.finalAnswer])	
+
+		def curQuestion = "um " + params.finalAnswer + " ______  mas um  não "
+		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), 
+											 curQuestion: curQuestion, finalAnswer: params.finalAnswer])	
 	}
 	def submitTipForAnswer()
 	{
 		log.info 'tip'
 		log.info params
-		animaisService.insertNodesToAnswer(params.long('rootNode'), params.tipToFinalAnswer, params.finalAnswer, params.int('userChoice'))
+
+		animaisService.insertNodesToAnswer(params.long('rootNode'), params.tipToFinalAnswer, params.finalAnswer)
 		render(action:'index')
 	}	
 

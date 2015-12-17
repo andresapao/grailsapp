@@ -28,8 +28,7 @@ class AnimaisService {
                     min('id')
                 }
             }            
-            log.info 'primeira'
-            log.info result
+
             return AnimaisTreeMap.get(result[0])
     	}
         else
@@ -43,10 +42,7 @@ class AnimaisService {
        log.info previousNodeId       
 
 		def curObj = AnimaisTreeMap.get(nodeId)    	
-    	log.info 'curObj'
-		log.info curObj    		
         return curObj."$answerField"
-
     }
     def fillPreviousQuestions(curQuestion, optionAnswered)
     {
@@ -58,22 +54,21 @@ class AnimaisService {
     	return previousQuestions
     	
     }
-    def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer, userChoice)
+    def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer)
     {
         def rootObj = AnimaisTreeMap.get(rootId)
-//        def answerField = getCorrespondingAnswerField(userChoice)
-
-     
         def previousNodeQuery = AnimaisTreeMap.where{noAnswerNode.id == rootId || yesAnswerNode.id == rootId}
         def previousNode = previousNodeQuery.get()
+
         log.info previousNode.yesAnswerNode.id        
         log.info previousNode.noAnswerNode.id                
         log.info rootId
-        log.info rootId.getClass()
-        log.info previousNode.yesAnswerNode.id.getClass()        
+//        log.info rootId.getClass()
+//        log.info previousNode.yesAnswerNode.id.getClass()        
 
         def answerField
         def idToCompare = previousNode.yesAnswerNode.id
+
         if(idToCompare == rootId)
         {
             answerField = 'yesAnswerNode'
@@ -92,13 +87,10 @@ class AnimaisService {
 
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, yesAnswerNode:null, noAnswerNode:null)
         def finalAnswerPersisted = finalAnswerRow.save(failOnError: true)
-        log.info finalAnswerPersisted
-
         def tipAnswerRow = new AnimaisTreeMap(nodeDescription: tipToFinalAnswer, 
                                               yesAnswerNode:finalAnswerPersisted, 
-                                              noAnswerNode:null)
+                                              noAnswerNode:rootObj)
         def tipAnswerPersisted = tipAnswerRow.save(failOnError: true)
-        log.info tipAnswerPersisted        
 
         previousNode."$answerField" = tipAnswerPersisted
         previousNode.save(failOnError: true)
