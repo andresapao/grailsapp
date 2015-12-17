@@ -6,6 +6,7 @@
 		<title>Jogo dos Animais</title>
 	</head>
 	<body>
+		<g:actionSubmit action="reset" value="Começar do zero" />					
 		<g:form controller="animais" action="addNode" params="['index': curIndex]">	
 			<div>${curIndex} - ${curQuestion}</div>
 			<g:if test="${!isFirstQuestion}">			

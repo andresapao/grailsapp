@@ -64,11 +64,20 @@ class AnimaisController {
 
 		if(nextNode != null)
 		{
-			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: nextNode.nodeDescription])			
+			curQuestion = "O animal que você pensou " + nextNode.nodeDescription + " ?"
+			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			
 		}
 		else
 		{
-			curQuestion = "Em que animal voce pensou"
+			if(params.int('optionsForQuestion') == 1)
+			{
+				curQuestion = "Acertei de novo"				
+			}
+			else
+			{
+				curQuestion = "Em que animal voce pensou?"				
+			}
+
 			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode])
 		}
 	}
@@ -80,6 +89,11 @@ class AnimaisController {
 		def curQuestion = "um " + params.finalAnswer + " ______  mas um  não "
 		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), 
 											 curQuestion: curQuestion, finalAnswer: params.finalAnswer])	
+	}
+	def reset()
+	{
+		animaisService.reset()
+		redirect(action:'index')		
 	}
 	def submitTipForAnswer()
 	{

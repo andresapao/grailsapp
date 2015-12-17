@@ -95,4 +95,8 @@ class AnimaisService {
         previousNode."$answerField" = tipAnswerPersisted
         previousNode.save(failOnError: true)
     }
+    def reset()
+    {
+        AnimaisTreeMap.clear()
+    }
 }
