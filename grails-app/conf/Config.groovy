@@ -104,7 +104,7 @@ log4j.main = {
     //}
     info "grails.app"    
     appenders {
-        file name:'file', file:'e:/mylog.log'
+        file name:'file', file:'c:/grailsLog.log'
     }
     root {
         error 'stdout', 'file'

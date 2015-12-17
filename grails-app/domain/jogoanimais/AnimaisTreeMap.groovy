@@ -7,9 +7,14 @@ class AnimaisTreeMap {
    AnimaisTreeMap yesAnswerNode
    AnimaisTreeMap noAnswerNode
    
-   static constraints = {
-       yesAnswerNode nullable:true
-       noAnswerNode nullable:true        
-  }
+   	static constraints = {
+	    yesAnswerNode nullable:true
+    	noAnswerNode nullable:true        
+	   	
+  	}
 	static mappedBy = [ yesAnswerNode: "none", noAnswerNode: "none" ]	
+    static mapping = {
+        yesAnswerNode cascade: "all-delete-orphan"
+        noAnswerNode cascade: "all-delete-orphan"
+    }
 }

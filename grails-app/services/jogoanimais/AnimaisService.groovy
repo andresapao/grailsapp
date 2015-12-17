@@ -61,28 +61,46 @@ class AnimaisService {
     def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer, userChoice)
     {
         def rootObj = AnimaisTreeMap.get(rootId)
-        def answerField = getCorrespondingAnswerField(userChoice)
-        log.info answerField
-        def previousNodeQuery = AnimaisTreeMap.where{"$answerField" == rootObj}
+//        def answerField = getCorrespondingAnswerField(userChoice)
+
+     
+        def previousNodeQuery = AnimaisTreeMap.where{noAnswerNode.id == rootId || yesAnswerNode.id == rootId}
         def previousNode = previousNodeQuery.get()
+        log.info previousNode.yesAnswerNode.id        
+        log.info previousNode.noAnswerNode.id                
+        log.info rootId
+        log.info rootId.getClass()
+        log.info previousNode.yesAnswerNode.id.getClass()        
+
+        def answerField
+        def idToCompare = previousNode.yesAnswerNode.id
+        if(idToCompare == rootId)
+        {
+            answerField = 'yesAnswerNode'
+        }
+        else
+        {
+            answerField = 'noAnswerNode'
+        }
 
         log.info 'previousId'
         log.info previousNode        
         log.info 'rootObj'
         log.info rootObj
-
-
+        log.info 'answerField'
+        log.info answerField                
 
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, yesAnswerNode:null, noAnswerNode:null)
         def finalAnswerPersisted = finalAnswerRow.save(failOnError: true)
         log.info finalAnswerPersisted
+
         def tipAnswerRow = new AnimaisTreeMap(nodeDescription: tipToFinalAnswer, 
                                               yesAnswerNode:finalAnswerPersisted, 
-                                              noAnswerNode:rootObj)
+                                              noAnswerNode:null)
         def tipAnswerPersisted = tipAnswerRow.save(failOnError: true)
         log.info tipAnswerPersisted        
-        previousNode.noAnswerNode = tipAnswerPersisted
-        previousNode.save()
 
+        previousNode."$answerField" = tipAnswerPersisted
+        previousNode.save(failOnError: true)
     }
 }

@@ -9,12 +9,13 @@ class AnimaisController {
 		def curQuestion
 		def currentNode
 		def previousQuestions
-		def isLastQuestion
+		def isFirstQuestion
 
 
 		previousNode = params.index
 		currentNode = params.int('curNode')
 		curQuestion = params.curQuestion
+		isFirstQuestion = false
 
 		log.info "index - params"
 		log.info params
@@ -23,22 +24,19 @@ class AnimaisController {
 		if(curQuestion == null)
 		{
 			curQuestion = "Pense em um animal"
-		}
-
-		if(params.lastQuestion)
-		{
-			curQuestion = "Em que animal voce pensou"
-			render(view: "lastQuestion", model: [curQuestion:curQuestion])		
-
+			isFirstQuestion = true;
 		}
 		else
 		{
+			isFirstQuestion = false;
+		}
+
 			render(view: "show", model: [animalList: animalsTreeObj, 
 										 curIndex: currentNode, 
 										 curQuestion: curQuestion, 
-										 lastQuestion: isLastQuestion,
+										 isFirstQuestion: isFirstQuestion,
 										 previousQuestions:previousQuestions])		
-		}
+
 /*
 		if(previousNode != null && previousNode != '')
 		{
@@ -85,7 +83,7 @@ class AnimaisController {
 	{
 		log.info 'tip'
 		log.info params
-		animaisService.insertNodesToAnswer(params.int('rootNode'), params.tipToFinalAnswer, params.finalAnswer, params.int('userChoice'))
+		animaisService.insertNodesToAnswer(params.long('rootNode'), params.tipToFinalAnswer, params.finalAnswer, params.int('userChoice'))
 		render(action:'index')
 	}	
 
