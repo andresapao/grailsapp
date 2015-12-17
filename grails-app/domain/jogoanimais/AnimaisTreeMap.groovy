@@ -8,7 +8,7 @@ class AnimaisTreeMap {
 	Long yesAnswerNode
 	Long noAnswerNode
 	static mapping = {
-	    nodeId composite: ['title', 'author']
+	    id column:'nodeId'
 	}	
     static constraints = {
     	yesAnswerNode nullable:true

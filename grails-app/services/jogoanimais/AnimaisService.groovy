@@ -54,7 +54,25 @@ class AnimaisService {
     		previousQuestions = []
     	}
     	previousQuestions.push('question':curQuestion, 'answer':'sim')
-    	[previousQuestions]
+    	return previousQuestions
     	
+    }
+    def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer)
+    {
+        def previousNode = AnimaisTreeMap.findByNoAnswerNode(rootId)        
+        log.info 'previousId'
+        log.info previousNode        
+        log.info previousNode.nodeId
+
+        def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, yesAnswerNode:null, noAnswerNode:null)
+        def finalAnswerPersisted = finalAnswerRow.save(failOnError: true)
+        log.info finalAnswerPersisted
+        def tipAnswerRow = new AnimaisTreeMap(nodeDescription: tipToFinalAnswer, 
+                                              yesAnswerNode:finalAnswerPersisted.nodeId, 
+                                              noAnswerNode:previousNode.nodeId)
+        def tipAnswerPersisted = finalAnswerRow.save(failOnError: true)
+        previousNode.noAnswerNode = tipAnswerPersisted.nodeId
+        previousNode.save()
+
     }
 }

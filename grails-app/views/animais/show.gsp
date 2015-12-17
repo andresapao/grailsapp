@@ -9,7 +9,7 @@
 		<g:form controller="animais" action="addNode" params="['index': curIndex]">	
 			<div>${curIndex} - ${curQuestion}</div>
 			<g:if test="${!lastQuestion}">			
-				<g:radioGroup name="optionsForQuestion" labels="['Sim','Nao']" values="[1,0]" >
+				<g:radioGroup name="optionsForQuestion" labels="['Sim','Nao']" values="[1,0]" value="0" >
 					<p>${it.radio} ${it.label} </p>
 				</g:radioGroup>			
 			</g:if>
