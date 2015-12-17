@@ -6,8 +6,10 @@
 		<title>Jogo dos Animais</title>
 	</head>
 	<body>
-		<g:actionSubmit action="reset" value="Começar do zero" />					
+
 		<g:form controller="animais" action="addNode" params="['index': curIndex]">	
+
+		<g:actionSubmit action="reset" value="Começar do zero" />		
 			<div>${curIndex} - ${curQuestion}</div>
 			<g:if test="${!isFirstQuestion}">			
 				<g:radioGroup name="optionsForQuestion" labels="['Sim','Nao']" values="[1,0]" value="0" >

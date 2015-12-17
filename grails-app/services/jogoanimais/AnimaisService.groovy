@@ -102,7 +102,12 @@ class AnimaisService {
     }
     def reset()
     {
-        AnimaisTreeMap.clear()
+        log.info "reset"
+        //AnimaisTreeMap.executeUpdate("delete from AnimaisTreeMap")
+        def list = AnimaisTreeMap.list()
+        list.each { row ->
+            row.delete()
+        }        
     }
     def mountQuestionByUserOption
     {
