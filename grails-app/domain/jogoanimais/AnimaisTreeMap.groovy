@@ -14,7 +14,7 @@ class AnimaisTreeMap {
   	}
 	static mappedBy = [ yesAnswerNode: "none", noAnswerNode: "none" ]	
     static mapping = {
-        yesAnswerNode cascade: "all-delete-orphan"
-        noAnswerNode cascade: "all-delete-orphan"
+        yesAnswerNode cascade: 'delete'
+        noAnswerNode cascade: 'delete'
     }
 }

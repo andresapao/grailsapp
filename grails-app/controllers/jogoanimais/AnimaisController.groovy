@@ -87,7 +87,7 @@ class AnimaisController {
 		log.info params
 
 		animaisService.insertNodesToAnswer(params.long('rootNode'), params.tipToFinalAnswer, params.finalAnswer)
-		render(action:'index')
+		redirect(action:'index')
 	}	
 
 }

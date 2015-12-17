@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,7 +13,7 @@
 					<p>${it.radio} ${it.label} </p>
 				</g:radioGroup>			
 			</g:if>
-			<g:submitButton name="addNode" value="Pr�ximo" />						
+			<g:submitButton name="addNode" value="Próximo" />						
 			<g:if test="${previousQuestions}">
 
 				<div id="previousSteps">
