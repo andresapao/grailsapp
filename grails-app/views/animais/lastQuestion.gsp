@@ -14,7 +14,7 @@
 					<g:actionSubmit action="submitFinalAnswer" value="OK" />					
 				</g:if>								
 				<g:if test="${showDivTip}">			
-					<g:textField name="tipToFinalAnswer"/>					
+					<g:textField name="tipToFinalAnswer" value="${tipText}"/>					
 					<g:actionSubmit action="submitTipForAnswer" value="Finalizar" />						
 				</g:if>
 		</g:form>

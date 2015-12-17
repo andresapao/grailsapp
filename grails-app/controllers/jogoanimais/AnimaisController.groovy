@@ -65,7 +65,7 @@ class AnimaisController {
 
 		if(nextNode != null)
 		{
-			forward(action:'index', params: ['curNode': nextNode.nodeId, 'previousNode': curNode, curQuestion: nextNode.nodeDescription])			
+			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: nextNode.nodeDescription])			
 		}
 		else
 		{
@@ -77,14 +77,15 @@ class AnimaisController {
 	{
 		log.info 'finalAnswer'
 		log.info params
-		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), finalAnswer: params.finalAnswer])	
+		def tipText = "um " + params.finalAnswer + " ______ "
+		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), tipText: tipText, finalAnswer: params.finalAnswer])	
 	}
 	def submitTipForAnswer()
 	{
 		log.info 'tip'
 		log.info params
 		animaisService.insertNodesToAnswer(params.int('rootNode'), params.tipToFinalAnswer, params.finalAnswer)
-		render 'ok'
+		render(action:'index')
 	}	
 
 }

@@ -20,32 +20,33 @@ class AnimaisService {
 
     	if(previousNodeId == null)
     	{
-            return AnimaisTreeMap.get(1)
+            def criteria = AnimaisTreeMap.createCriteria()
+            def result = criteria.list {
+                isNotNull('yesAnswerNode')
+                isNotNull('noAnswerNode')
+                projections {
+                    min('id')
+                }
+            }            
+            log.info 'primeira'
+            log.info result
+            return AnimaisTreeMap.get(result[0])
     	}
-        nodeId = previousNodeId
+        else
+        {
+            nodeId = previousNodeId            
+        }
+
 
 	   log.info 'getNextNode1'
 	   log.info nodeId
        log.info previousNodeId       
-       log.info answerField              
 
-		def nextObj = AnimaisTreeMap.get(nodeId)    	
-    	log.info 'nextObj'
-		log.info nextObj    		
-        nodeId = nextObj."$answerField"
+		def curObj = AnimaisTreeMap.get(nodeId)    	
+    	log.info 'curObj'
+		log.info curObj    		
+        return curObj."$answerField"
 
-
-    	log.info 'getNextNode2'
-    	log.info nodeId
-    	if(nodeId != null)
-    	{
-	    	def obj = AnimaisTreeMap.get(nodeId)
-	    	return obj
-    	}
-    	else
-		{
-			return null
-	    }
     }
     def fillPreviousQuestions(curQuestion, optionAnswered)
     {
@@ -59,19 +60,24 @@ class AnimaisService {
     }
     def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer)
     {
-        def previousNode = AnimaisTreeMap.findByNoAnswerNode(rootId)        
+        def rootObj = AnimaisTreeMap.get(rootId)
+        def previousNodeQuery = AnimaisTreeMap.where{noAnswerNode.id == rootId}
+        def previousNode = previousNodeQuery.get()
+
+
         log.info 'previousId'
         log.info previousNode        
-        log.info previousNode.nodeId
+
 
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, yesAnswerNode:null, noAnswerNode:null)
         def finalAnswerPersisted = finalAnswerRow.save(failOnError: true)
         log.info finalAnswerPersisted
         def tipAnswerRow = new AnimaisTreeMap(nodeDescription: tipToFinalAnswer, 
-                                              yesAnswerNode:finalAnswerPersisted.nodeId, 
-                                              noAnswerNode:previousNode.nodeId)
-        def tipAnswerPersisted = finalAnswerRow.save(failOnError: true)
-        previousNode.noAnswerNode = tipAnswerPersisted.nodeId
+                                              yesAnswerNode:finalAnswerPersisted, 
+                                              noAnswerNode:rootObj)
+        def tipAnswerPersisted = tipAnswerRow.save(failOnError: true)
+        log.info tipAnswerPersisted        
+        previousNode.noAnswerNode = tipAnswerPersisted
         previousNode.save()
 
     }
