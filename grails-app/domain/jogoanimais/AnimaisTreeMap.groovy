@@ -10,7 +10,7 @@ class AnimaisTreeMap {
     static final int ACTION = 2
 
    String nodeDescription
-   int nodeInfo
+   AnimalInfoTypeEnum nodeInfo
    AnimaisTreeMap yesAnswerNode
    AnimaisTreeMap noAnswerNode
    

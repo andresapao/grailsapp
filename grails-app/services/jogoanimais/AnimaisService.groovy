@@ -87,13 +87,13 @@ class AnimaisService {
         log.info answerField                
 */
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, 
-                                                nodeInfo: AnimaisTreeMap.ANIMAL,
+                                                nodeInfo: AnimalInfoTypeEnum.ANIMAL,
                                                 yesAnswerNode:null, 
                                                 noAnswerNode:null)
         def finalAnswerPersisted = finalAnswerRow.save(failOnError: true)
 
         def tipAnswerRow = new AnimaisTreeMap(nodeDescription: tipToFinalAnswer, 
-                                              nodeInfo: AnimaisTreeMap.ACTION,
+                                              nodeInfo: AnimalInfoTypeEnum.ACTION,
                                               yesAnswerNode:finalAnswerPersisted, 
                                               noAnswerNode:rootObj)
         def tipAnswerPersisted = tipAnswerRow.save(failOnError: true)
@@ -103,6 +103,7 @@ class AnimaisService {
     }
     def reset()
     {
+        log.info 'reset'
         //AnimaisTreeMap.executeUpdate("delete from AnimaisTreeMap")
         def list = AnimaisTreeMap.list()
         list.each { row ->
@@ -112,7 +113,7 @@ class AnimaisService {
     def mountQuestionByNodeInfo(nextNode)
     {
         def curQuestion
-        if(nextNode.nodeInfo == AnimaisTreeMap.ANIMAL)
+        if(nextNode.nodeInfo == AnimalInfoTypeEnum.ANIMAL)
         {
             curQuestion = "O animal que você pensou é " + nextNode.nodeDescription + " ?"               
         }
@@ -129,18 +130,18 @@ class AnimaisService {
     def initializeDB()
     {
         def noAnswer =  new AnimaisTreeMap(nodeDescription:"macaco", 
-                                           nodeInfo: AnimaisTreeMap.ANIMAL,
+                                           nodeInfo: AnimalInfoTypeEnum.ANIMAL,
                                            noAnswerNode:null, 
                                            yesAnswerNode:null)
         noAnswer.save(failOnError: true)
         def yesAnswer =  new AnimaisTreeMap(nodeDescription:"tubarão", 
-                                            nodeInfo: AnimaisTreeMap.ANIMAL,
+                                            nodeInfo: AnimalInfoTypeEnum.ANIMAL,
                                             noAnswerNode:null, 
                                             yesAnswerNode:null)
         yesAnswer.save(failOnError: true)           
 
         new AnimaisTreeMap(nodeDescription:"vive na água", 
-                           nodeInfo: AnimaisTreeMap.ACTION,
+                           nodeInfo: AnimalInfoTypeEnum.ACTION,
                            noAnswerNode: noAnswer, 
                            yesAnswerNode:  yesAnswer).
                            save(failOnError: true)                  
