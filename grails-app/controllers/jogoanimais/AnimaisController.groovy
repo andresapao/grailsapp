@@ -6,11 +6,11 @@ class AnimaisController {
 
     def index() { 
 		def animalsTreeObj =  AnimaisTreeMap.list()
+		session.setAttribute('traceability', null)			
 		def curQuestion
 		def currentNode
 		def previousQuestions
 		def isFirstQuestion
-
 
 		previousNode = params.index
 		currentNode = params.int('curNode')
@@ -49,11 +49,11 @@ class AnimaisController {
 		def nextNode
 		def curNode = params.int('index')
 		def curQuestion
-/*
+
 		log.info "addNode - params"
 		log.info params
 		log.info curNode		
-*/
+
 		def userChoice = params.int('optionsForQuestion')
 		nextNode = animaisService.getNextNode(curNode, userChoice)
 /*		
@@ -63,8 +63,19 @@ class AnimaisController {
 
 		if(nextNode != null)
 		{
-			
-//			animaisService.setTraceability(curQuestion, userChoice)
+			if(curNode != null)
+			{
+
+
+				def previousObj = session.getAttribute('traceability')
+				log.info 'recuperando da sessao'
+				log.info previousObj
+
+				def objReturned = animaisService.fillPreviousQuestions(curNode, userChoice, previousObj)
+				log.info 'gravando na sessao ' 
+				log.info objReturned
+				session.setAttribute('traceability', objReturned)
+			}
 
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
 			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			
@@ -74,7 +85,7 @@ class AnimaisController {
 			def finished = false
 			if(userChoice == 1)
 			{
-				curQuestion = "Acertei de novo"				
+				curQuestion = "Acertei"				
 				finished = true
 			}
 			else
@@ -92,7 +103,7 @@ class AnimaisController {
 		log.info params
 */
 		def previousAnimal = animaisService.getAnimalDesc(params.int('rootNode'))
-		def curQuestion = "um(a) " + params.finalAnswer + " ______  mas um(a) " + previousAnimal.nodeDescription + " não "
+		def curQuestion = "Um(a) " + params.finalAnswer + " ______,  mas um(a) " + previousAnimal.nodeDescription + " não. "
 		render(view: "tipAnswer", model: [rootNode: params.int('rootNode'), curQuestion: curQuestion, 
 										  finalAnswer: params.finalAnswer])	
 	}

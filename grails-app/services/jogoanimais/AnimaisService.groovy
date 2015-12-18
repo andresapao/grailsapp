@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 
 @Transactional
 class AnimaisService {
-	def static previousQuestions
+
 
     def serviceMethod() {
 
@@ -44,26 +44,48 @@ class AnimaisService {
 		def curObj = AnimaisTreeMap.get(nodeId)    	
         return curObj."$answerField"
     }
-    def fillPreviousQuestions(curQuestion, optionAnswered)
+    def fillPreviousQuestions(curNode, optionAnswered, previousQuestions)
     {
+
     	if(previousQuestions == null)
     	{
     		previousQuestions = []
     	}
-    	previousQuestions.push('question':curQuestion, 'answer':'sim')
-    	return previousQuestions
-    	
+        def obj = AnimaisTreeMap.get(curNode)
+
+        log.info 'fillPrevious'        
+        log.info curNode
+        log.info obj        
+
+
+    	previousQuestions.push('question':obj.nodeDescription, 'answer': getDescOptionAnswer(optionAnswered))
+
+        log.info "retornando previousObj"
+        log.info previousQuestions
+
+        return previousQuestions
+    }
+    def getDescOptionAnswer(answer)
+    {
+        if(answer == 1)
+        {
+            return "Sim"
+        }
+        else
+        {
+            return "Não"
+        }
     }
     def insertNodesToAnswer(rootId, tipToFinalAnswer, finalAnswer)
     {
         def rootObj = AnimaisTreeMap.get(rootId)
         def previousNodeQuery = AnimaisTreeMap.where{noAnswerNode.id == rootId || yesAnswerNode.id == rootId}
         def previousNode = previousNodeQuery.get()
-/*
+
         log.info previousNode.yesAnswerNode.id        
         log.info previousNode.noAnswerNode.id                
         log.info rootId
-*/        
+
 //        log.info rootId.getClass()
 //        log.info previousNode.yesAnswerNode.id.getClass()        
 
@@ -78,14 +100,14 @@ class AnimaisService {
         {
             answerField = 'noAnswerNode'
         }
-/*
+
         log.info 'previousId'
         log.info previousNode        
         log.info 'rootObj'
         log.info rootObj
         log.info 'answerField'
         log.info answerField                
-*/
+
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, 
                                                 nodeInfo: AnimalInfoTypeEnum.ANIMAL,
                                                 yesAnswerNode:null, 
@@ -103,7 +125,7 @@ class AnimaisService {
     }
     def reset()
     {
-        log.info 'reset'
+
         //AnimaisTreeMap.executeUpdate("delete from AnimaisTreeMap")
         def list = AnimaisTreeMap.list()
         list.each { row ->
@@ -145,9 +167,5 @@ class AnimaisService {
                            noAnswerNode: noAnswer, 
                            yesAnswerNode:  yesAnswer).
                            save(failOnError: true)                  
-    }
-    def setTraceability(question, userAnswer)
-    {
-
     }
 }

@@ -13,10 +13,9 @@
 				<g:actionSubmit class="btn btn-primary" action="backToStart" value="Voltar" />
 			</g:if>			
 			<g:if test="${!finished}">
-				<g:if test="${!showDivTip}">			
-					<g:textField name="finalAnswer" value="${finalAnswer}"/>
-					<g:actionSubmit class="btn btn-primary" action="submitFinalAnswer" value="OK" />					
-				</g:if>								
+				<g:textField name="finalAnswer" value="${finalAnswer}"/>
+				<h6><i>Escreve o nome do animal que você pensou</i></h6>				
+				<g:actionSubmit class="btn btn-primary" action="submitFinalAnswer" value="OK" />					
 			</g:if>
 		</g:form>
 	</body>
