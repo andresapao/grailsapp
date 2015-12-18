@@ -6,7 +6,7 @@ class AnimaisController {
 
     def index() { 
 		def animalsTreeObj =  AnimaisTreeMap.list()
-		session.setAttribute('traceability', null)			
+
 		def curQuestion
 		def currentNode
 		def previousQuestions
@@ -16,32 +16,23 @@ class AnimaisController {
 		currentNode = params.int('curNode')
 		curQuestion = params.curQuestion
 		isFirstQuestion = false
-/*
-		log.info "index - params"
-		log.info params
-		log.info currentNode
-*/
+
 		if(curQuestion == null)
 		{
 			curQuestion = "Pense em um animal"
 			isFirstQuestion = true;
+			session.setAttribute('traceability', null)						
 		}
 		else
 		{
 			isFirstQuestion = false;
 		}
 
-			render(view: "show", model: [animalList: animalsTreeObj, 
-										 curIndex: currentNode, 
-										 curQuestion: curQuestion, 
-										 isFirstQuestion: isFirstQuestion,
-										 previousQuestions:previousQuestions])		
-/*
-		if(previousNode != null && previousNode != '')
-		{
-			previousQuestions = animaisService.fillPreviousQuestions(curQuestion, params.optionsForQuestion)
-		}
-*/
+		render(view: "show", model: [animalList: animalsTreeObj, 
+									 curIndex: currentNode, 
+									 curQuestion: curQuestion, 
+									 isFirstQuestion: isFirstQuestion,
+									 previousQuestions:previousQuestions])		
 	}
 	
 	def loadNextStep()
@@ -49,11 +40,11 @@ class AnimaisController {
 		def nextNode
 		def curNode = params.int('index')
 		def curQuestion
-
+/*
 		log.info "addNode - params"
 		log.info params
 		log.info curNode		
-
+*/
 		def userChoice = params.int('optionsForQuestion')
 		nextNode = animaisService.getNextNode(curNode, userChoice)
 /*		
@@ -63,18 +54,18 @@ class AnimaisController {
 
 		if(nextNode != null)
 		{
+
+
 			if(curNode != null)
 			{
-
-
 				def previousObj = session.getAttribute('traceability')
-				log.info 'recuperando da sessao'
-				log.info previousObj
-
+//				log.info 'recuperando da sessao'
+//				log.info previousObj
 				def objReturned = animaisService.fillPreviousQuestions(curNode, userChoice, previousObj)
 				log.info 'gravando na sessao ' 
 				log.info objReturned
 				session.setAttribute('traceability', objReturned)
+
 			}
 
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
@@ -115,10 +106,6 @@ class AnimaisController {
 	}
 	def submitTipForAnswer()
 	{
-
-		log.info 'tipAnswer'
-		log.info params
-
 		animaisService.insertNodesToAnswer(params.long('rootNode'), params.tipToFinalAnswer, params.finalAnswer)
 		redirect(action:'index')
 	}	

@@ -23,12 +23,22 @@ grails.project.fork = [
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
+    System.setProperty("http.proxyHost", "proxy-matriz.sp01.local");
+    System.setProperty("http.proxyPort", "8080");
+    Authenticator.setDefault(new Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication("jv01\\andre.l","Hb2&18ilpeutsecourir".toCharArray());
+        }
+    }); 
+
+    
+
     // inherit Grails' default dependencies
     inherits("global") {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
     }
-    log "debug" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "verbose" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
     legacyResolve false // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
 

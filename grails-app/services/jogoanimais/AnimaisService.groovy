@@ -52,17 +52,17 @@ class AnimaisService {
     		previousQuestions = []
     	}
         def obj = AnimaisTreeMap.get(curNode)
-
+/*
         log.info 'fillPrevious'        
         log.info curNode
         log.info obj        
-
+*/
 
     	previousQuestions.push('question':obj.nodeDescription, 'answer': getDescOptionAnswer(optionAnswered))
-
+/*
         log.info "retornando previousObj"
         log.info previousQuestions
-
+*/
         return previousQuestions
     }
     def getDescOptionAnswer(answer)
@@ -81,11 +81,11 @@ class AnimaisService {
         def rootObj = AnimaisTreeMap.get(rootId)
         def previousNodeQuery = AnimaisTreeMap.where{noAnswerNode.id == rootId || yesAnswerNode.id == rootId}
         def previousNode = previousNodeQuery.get()
-
+/*
         log.info previousNode.yesAnswerNode.id        
         log.info previousNode.noAnswerNode.id                
         log.info rootId
-
+*/
 //        log.info rootId.getClass()
 //        log.info previousNode.yesAnswerNode.id.getClass()        
 
@@ -168,4 +168,5 @@ class AnimaisService {
                            yesAnswerNode:  yesAnswer).
                            save(failOnError: true)                  
     }
+    
 }
