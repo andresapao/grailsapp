@@ -64,7 +64,7 @@ class AnimaisController {
 		if(nextNode != null)
 		{
 			
-			animaisService.setTraceability(curQuestion, userChoice)
+//			animaisService.setTraceability(curQuestion, userChoice)
 
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
 			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			

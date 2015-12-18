@@ -146,4 +146,8 @@ class AnimaisService {
                            yesAnswerNode:  yesAnswer).
                            save(failOnError: true)                  
     }
+    def setTraceability(question, userAnswer)
+    {
+
+    }
 }
