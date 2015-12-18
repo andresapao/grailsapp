@@ -1,6 +1,3 @@
-# grailsapp
-JogoAnimais em Grails
-
 ## Purpose
 
 Write a guessing game considering animals 
