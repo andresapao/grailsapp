@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<g:form controller="animais" params="['rootNode': rootNode, 'finalAnswer': finalAnswer]">	
-			<div>${curQuestion}</div>		
+			<h3>${curQuestion} </h3>			
 
 			<g:if test="${finished}">			
 				<g:actionSubmit class="btn btn-primary" action="backToStart" value="Voltar" />

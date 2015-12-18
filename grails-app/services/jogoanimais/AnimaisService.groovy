@@ -59,10 +59,11 @@ class AnimaisService {
         def rootObj = AnimaisTreeMap.get(rootId)
         def previousNodeQuery = AnimaisTreeMap.where{noAnswerNode.id == rootId || yesAnswerNode.id == rootId}
         def previousNode = previousNodeQuery.get()
-
+/*
         log.info previousNode.yesAnswerNode.id        
         log.info previousNode.noAnswerNode.id                
         log.info rootId
+*/        
 //        log.info rootId.getClass()
 //        log.info previousNode.yesAnswerNode.id.getClass()        
 
@@ -102,20 +103,24 @@ class AnimaisService {
     }
     def reset()
     {
-        log.info "reset"
         //AnimaisTreeMap.executeUpdate("delete from AnimaisTreeMap")
         def list = AnimaisTreeMap.list()
         list.each { row ->
             row.delete()
         }        
     }
-    def mountQuestionByUserOption
+    def mountQuestionByNodeInfo(nextNode)
     {
-
-    }
-    def mountQuestionByNodeInfo
-    {
-
+        def curQuestion
+        if(nextNode.nodeInfo == AnimaisTreeMap.ANIMAL)
+        {
+            curQuestion = "O animal que você pensou é " + nextNode.nodeDescription + " ?"               
+        }
+        else
+        {
+            curQuestion = "O animal que você pensou " + nextNode.nodeDescription + " ?"                             
+        }
+        return curQuestion
     }
     def getAnimalDesc(animalId)
     {

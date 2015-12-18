@@ -64,21 +64,13 @@ class AnimaisController {
 		//TODO: split "if" clause into method to treat when is final act or there's following questions
 		if(nextNode != null)
 		{
-			if(nextNode.nodeInfo == AnimaisTreeMap.ANIMAL)
-			{
-				curQuestion = "O animal que você pensou é " + nextNode.nodeDescription + " ?"				
-			}
-			else
-			{
-				curQuestion = "O animal que você pensou " + nextNode.nodeDescription + " ?"								
-			}
-
+			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
 			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			
 		}
 		else
 		{
 			def finished = false
-			if(params.int('optionsForQuestion') == 1)
+			if(userChoice == 1)
 			{
 				curQuestion = "Acertei de novo"				
 				finished = true

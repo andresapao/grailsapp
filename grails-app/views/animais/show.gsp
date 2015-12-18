@@ -7,7 +7,8 @@
 	</head>
 	<body>
 		<g:form controller="animais" action="addNode" params="['index': curIndex]">	
-			<div>${curQuestion}</div>
+			<h3>${curQuestion} </h3>			
+			<br>
 			<g:if test="${!isFirstQuestion}">			
 				<g:radioGroup name="optionsForQuestion" labels="['Sim','Não']" values="[1,0]" value="0" >
 					<p>${it.radio} ${it.label} </p>
