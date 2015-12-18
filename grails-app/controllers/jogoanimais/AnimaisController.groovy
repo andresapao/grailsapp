@@ -63,6 +63,9 @@ class AnimaisController {
 
 		if(nextNode != null)
 		{
+			
+			animaisService.setTraceability(curQuestion, userChoice)
+
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
 			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			
 		}
@@ -89,7 +92,7 @@ class AnimaisController {
 		log.info params
 */
 		def previousAnimal = animaisService.getAnimalDesc(params.int('rootNode'))
-		def curQuestion = "um(a) " + ans + " ______  mas um(a) " + previousAnimal.nodeDescription + " não "
+		def curQuestion = "um(a) " + params.finalAnswer + " ______  mas um(a) " + previousAnimal.nodeDescription + " não "
 		render(view: "tipAnswer", model: [rootNode: params.int('rootNode'), curQuestion: curQuestion, 
 										  finalAnswer: params.finalAnswer])	
 	}
