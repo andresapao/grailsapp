@@ -46,23 +46,33 @@ class AnimaisService {
     }
     def fillPreviousQuestions(curNode, optionAnswered, previousQuestions)
     {
+        int nextId
 
+        def obj = AnimaisTreeMap.get(curNode)        
     	if(previousQuestions == null)
     	{
     		previousQuestions = []
+            nextId = 1
     	}
-        def obj = AnimaisTreeMap.get(curNode)
+        else
+        {
+            nextId = previousQuestions.max {it.id}.id 
+            nextId = (nextId == null ? 0 : nextId)
+            nextId += 1
+        }
+
 /*
         log.info 'fillPrevious'        
         log.info curNode
         log.info obj        
 */
+        def newRecord =  [:]
+        newRecord['id'] = nextId
+        newRecord['question'] = obj.nodeDescription
+        newRecord['answer'] = getDescOptionAnswer(optionAnswered)
+        log.info newRecord
+    	previousQuestions.push(newRecord)
 
-    	previousQuestions.push('question':obj.nodeDescription, 'answer': getDescOptionAnswer(optionAnswered))
-/*
-        log.info "retornando previousObj"
-        log.info previousQuestions
-*/
         return previousQuestions
     }
     def getDescOptionAnswer(answer)

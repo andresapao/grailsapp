@@ -28,11 +28,11 @@ class AnimaisController {
 			isFirstQuestion = false;
 		}
 
-		render(view: "show", model: [animalList: animalsTreeObj, 
-									 curIndex: currentNode, 
-									 curQuestion: curQuestion, 
-									 isFirstQuestion: isFirstQuestion,
-									 previousQuestions:previousQuestions])		
+		render(view: "savedQuestions", model: [animalList: animalsTreeObj, 
+									 		   curIndex: currentNode, 
+									 		   curQuestion: curQuestion, 
+									 		   isFirstQuestion: isFirstQuestion,
+									 		   previousQuestions:previousQuestions])		
 	}
 	
 	def loadNextStep()
@@ -40,6 +40,7 @@ class AnimaisController {
 		def nextNode
 		def curNode = params.int('index')
 		def curQuestion
+		def answersTrace
 /*
 		log.info "addNode - params"
 		log.info params
@@ -54,22 +55,11 @@ class AnimaisController {
 
 		if(nextNode != null)
 		{
-
-
-			if(curNode != null)
-			{
-				def previousObj = session.getAttribute('traceability')
-//				log.info 'recuperando da sessao'
-//				log.info previousObj
-				def objReturned = animaisService.fillPreviousQuestions(curNode, userChoice, previousObj)
-				log.info 'gravando na sessao ' 
-				log.info objReturned
-				session.setAttribute('traceability', objReturned)
-
-			}
-
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
-			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			
+			answersTrace = saveTraceability(curNode, userChoice)
+			log.info answersTrace
+			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, 
+											  'curQuestion': curQuestion, 'previousQuestions': answersTrace])			
 		}
 		else
 		{
@@ -83,10 +73,27 @@ class AnimaisController {
 			{
 				curQuestion = "Em que animal voce pensou?"
 			}
-
-			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode, finished: finished])
+			answersTrace = saveTraceability(curNode, userChoice)
+			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode, finished: finished, 
+											     previousQuestions: answersTrace])
 		}
 	}
+	def saveTraceability(curNode, userChoice)
+	{
+		if(curNode != null)
+		{
+			def previousObj = session.getAttribute('traceability')
+//				log.info 'recuperando da sessao'
+//				log.info previousObj
+			def objReturned = animaisService.fillPreviousQuestions(curNode, userChoice, previousObj)
+			log.info 'gravando na sessao ' 
+			log.info objReturned
+			session.setAttribute('traceability', objReturned)
+			return objReturned
+		}
+		return null
+	}
+
 	def submitFinalAnswer()
 	{
 /*
