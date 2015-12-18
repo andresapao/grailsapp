@@ -104,7 +104,7 @@ log4j.main = {
     //}
     info "grails.app"    
     appenders {
-        file name:'file', file:'c:/grailsLog.log'
+        file name:'file', file:'./grailsLog.log'
     }
     root {
         error 'stdout', 'file'
@@ -120,4 +120,6 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+     debug 'grails.plugins.twitterbootstrap'
 }
+grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'

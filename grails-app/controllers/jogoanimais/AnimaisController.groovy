@@ -100,6 +100,7 @@ class AnimaisController {
 		log.info params
 		log.info ans
 		log.info params.finalAnswer.getClass()
+		log.info params.finalAnswer.size()		
 
 		def previousAnimal = animaisService.getAnimalDesc(params.int('rootNode'))
 		def curQuestion = "um(a) " + ans + " ______  mas um(a) " + previousAnimal.nodeDescription + " não "
