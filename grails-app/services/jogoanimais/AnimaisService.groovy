@@ -36,11 +36,11 @@ class AnimaisService {
             nodeId = previousNodeId            
         }
 
-
+/*
 	   log.info 'getNextNode1'
 	   log.info nodeId
        log.info previousNodeId       
-
+*/
 		def curObj = AnimaisTreeMap.get(nodeId)    	
         return curObj."$answerField"
     }
@@ -78,14 +78,14 @@ class AnimaisService {
         {
             answerField = 'noAnswerNode'
         }
-
+/*
         log.info 'previousId'
         log.info previousNode        
         log.info 'rootObj'
         log.info rootObj
         log.info 'answerField'
         log.info answerField                
-
+*/
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, 
                                                 nodeInfo: AnimaisTreeMap.ANIMAL,
                                                 yesAnswerNode:null, 

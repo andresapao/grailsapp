@@ -44,7 +44,7 @@ class AnimaisController {
 */
 	}
 	
-	def addNode()
+	def loadNextStep()
 	{
 		def nextNode
 		def curNode = params.int('index')
@@ -61,7 +61,6 @@ class AnimaisController {
 		log.info nextNode
 */
 
-		//TODO: split "if" clause into method to treat when is final act or there's following questions
 		if(nextNode != null)
 		{
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
@@ -107,6 +106,7 @@ class AnimaisController {
 	}
 	def submitTipForAnswer()
 	{
+
 		log.info 'tipAnswer'
 		log.info params
 

@@ -6,7 +6,7 @@
 		<title>Jogo dos Animais</title>
 	</head>
 	<body>
-		<g:form controller="animais" action="addNode" params="['index': curIndex]">	
+		<g:form controller="animais" action="loadNextStep" params="['index': curIndex]">	
 			<h3>${curQuestion} </h3>			
 			<br>
 			<g:if test="${!isFirstQuestion}">			
@@ -14,7 +14,7 @@
 					<p>${it.radio} ${it.label} </p>
 				</g:radioGroup>			
 			</g:if>
-			<g:submitButton class="btn btn-primary" name="addNode" value="Próximo" />						
+			<g:submitButton class="btn btn-primary" name="loadNextStep" value="Próximo" />						
 			<g:actionSubmit class="btn btn-link" action="reset" value="Restaurar Padrões" />		
 
 			<g:if test="${previousQuestions}">
