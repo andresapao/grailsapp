@@ -6,7 +6,18 @@
     <g:layoutHead/>
 </head>
 <body>
-    <g:layoutBody/>
+	<nav class="navbar navbar-inverse">
+		<a class="navbar-brand" href="#">Jogo dos Animais</a>			
+	</nav>			
+	
+	<div class="container">
+		<div class="row">			
+			<div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">	
+			    <g:layoutBody/>
+			</div>				
+		</div>
+	</div>		
+
     <asset:javascript src="application.js"/>
 </body>
 </html>
