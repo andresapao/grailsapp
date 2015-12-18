@@ -70,7 +70,7 @@ class AnimaisService {
         newRecord['id'] = nextId
         newRecord['question'] = obj.nodeDescription
         newRecord['answer'] = getDescOptionAnswer(optionAnswered)
-        log.info newRecord
+//        log.info newRecord
     	previousQuestions.push(newRecord)
 
         return previousQuestions
@@ -110,14 +110,14 @@ class AnimaisService {
         {
             answerField = 'noAnswerNode'
         }
-
+/*
         log.info 'previousId'
         log.info previousNode        
         log.info 'rootObj'
         log.info rootObj
         log.info 'answerField'
         log.info answerField                
-
+*/
         def finalAnswerRow = new AnimaisTreeMap(nodeDescription: finalAnswer, 
                                                 nodeInfo: AnimalInfoTypeEnum.ANIMAL,
                                                 yesAnswerNode:null, 

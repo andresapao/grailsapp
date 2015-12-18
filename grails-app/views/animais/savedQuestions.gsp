@@ -16,7 +16,6 @@
 			</g:if>
 			<g:submitButton class="btn btn-primary" name="loadNextStep" value="Próximo" />						
 			<g:actionSubmit class="btn btn-link" action="reset" value="Restaurar Padrões" />		
-${previousQuestions}
 
 			<g:if test="${previousQuestions}">
 

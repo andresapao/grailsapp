@@ -57,7 +57,7 @@ class AnimaisController {
 		{
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
 			answersTrace = saveTraceability(curNode, userChoice)
-			log.info answersTrace
+//			log.info answersTrace
 			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, 
 											  'curQuestion': curQuestion, 'previousQuestions': answersTrace])			
 		}
@@ -83,11 +83,7 @@ class AnimaisController {
 		if(curNode != null)
 		{
 			def previousObj = session.getAttribute('traceability')
-//				log.info 'recuperando da sessao'
-//				log.info previousObj
 			def objReturned = animaisService.fillPreviousQuestions(curNode, userChoice, previousObj)
-			log.info 'gravando na sessao ' 
-			log.info objReturned
 			session.setAttribute('traceability', objReturned)
 			return objReturned
 		}
