@@ -6,8 +6,10 @@
     <g:layoutHead/>
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
-		<a class="navbar-brand" href="#">Jogo dos Animais</a>			
+	<nav class="navbar navbar-inverse navbar-static-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Jogo dos Animais</a>	
+		</div>
 	</nav>			
 	
 	<div class="container">

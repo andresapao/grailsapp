@@ -95,8 +95,8 @@ class AnimaisController {
 
 		def previousAnimal = animaisService.getAnimalDesc(params.int('rootNode'))
 		def curQuestion = "um(a) " + ans + " ______  mas um(a) " + previousAnimal.nodeDescription + " não "
-		render(view: "lastQuestion", model: [showDivTip: true, rootNode: params.int('rootNode'), 
-											 curQuestion: curQuestion, finalAnswer: params.finalAnswer])	
+		render(view: "tipAnswer", model: [rootNode: params.int('rootNode'), curQuestion: curQuestion, 
+										  finalAnswer: params.finalAnswer])	
 	}
 	def reset()
 	{

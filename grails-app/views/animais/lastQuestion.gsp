@@ -6,7 +6,7 @@
 		<title>Jogo dos Animais</title>
 	</head>
 	<body>
-		<g:form controller="animais" params="['rootNode': rootNode, 'finalAnswer': finalAnswer]">	
+		<g:form controller="animais" params="['rootNode': rootNode]">	
 			<h3>${curQuestion} </h3>			
 
 			<g:if test="${finished}">			
@@ -17,10 +17,6 @@
 					<g:textField name="finalAnswer" value="${finalAnswer}"/>
 					<g:actionSubmit class="btn btn-primary" action="submitFinalAnswer" value="OK" />					
 				</g:if>								
-				<g:if test="${showDivTip}">			
-					<g:textField name="tipToFinalAnswer" value="${tipText}"/>					
-					<g:actionSubmit class="btn btn-primary" action="submitTipForAnswer" value="Finalizar" />						
-				</g:if>
 			</g:if>
 		</g:form>
 	</body>
