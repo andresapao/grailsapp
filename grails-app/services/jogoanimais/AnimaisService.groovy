@@ -61,18 +61,11 @@ class AnimaisService {
             nextId += 1
         }
 
-/*
-        log.info 'fillPrevious'        
-        log.info curNode
-        log.info obj        
-*/
-        def newRecord =  [:]
-        newRecord['id'] = nextId
-        newRecord['question'] = obj.nodeDescription
-        newRecord['answer'] = getDescOptionAnswer(optionAnswered)
-//        log.info newRecord
-    	previousQuestions.push(newRecord)
 
+    	previousQuestions.push(['id': nextId, 'question':obj.nodeDescription, 'answer': getDescOptionAnswer(optionAnswered)])
+
+        log.info "retornando previousObj"
+        log.info previousQuestions
         return previousQuestions
     }
     def getDescOptionAnswer(answer)

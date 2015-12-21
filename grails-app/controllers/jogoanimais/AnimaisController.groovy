@@ -9,12 +9,11 @@ class AnimaisController {
 
 		def curQuestion
 		def currentNode
-		def previousQuestions
 		def isFirstQuestion
 
-		previousNode = params.index
-		currentNode = params.int('curNode')
-		curQuestion = params.curQuestion
+		previousNode = request.index
+		currentNode = request.curNode
+		curQuestion = request.curQuestion
 		isFirstQuestion = false
 
 		if(curQuestion == null)
@@ -28,11 +27,13 @@ class AnimaisController {
 			isFirstQuestion = false;
 		}
 
+		log.info 'request'
+		log.info request.previousQuestions
 		render(view: "savedQuestions", model: [animalList: animalsTreeObj, 
 									 		   curIndex: currentNode, 
 									 		   curQuestion: curQuestion, 
 									 		   isFirstQuestion: isFirstQuestion,
-									 		   previousQuestions:previousQuestions])		
+									 		   previousQuestions: request.previousQuestions])		
 	}
 	
 	def loadNextStep()
@@ -57,9 +58,11 @@ class AnimaisController {
 		{
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
 			answersTrace = saveTraceability(curNode, userChoice)
-//			log.info answersTrace
-			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, 
-											  'curQuestion': curQuestion, 'previousQuestions': answersTrace])			
+
+			forward(action:'index', model: [curNode: nextNode.id,
+											previousNode: curNode, 
+											curQuestion: curQuestion,
+											previousQuestions: answersTrace])					
 		}
 		else
 		{
