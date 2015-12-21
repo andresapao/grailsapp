@@ -16,28 +16,20 @@
 			</g:if>
 			<g:submitButton class="btn btn-primary" name="loadNextStep" value="Próximo" />						
 			<g:actionSubmit class="btn btn-link" action="reset" value="Restaurar Padrões" />		
-
+${previousQuestions}
+${previousQuestions.getClass()}
 			<g:if test="${previousQuestions}">
 
 				<div id="previousSteps">
 					<g:each in="${previousQuestions}" var="row" status="i">
 						<div>
-							<label>${row.question}</label>
-							<label>${row.answer}</label>							
+							<label>${row}</label>							
 						</div>
 						<br/>
 					</g:each>		
 				</div>
 			</g:if>			
 
-<!--						 
-			<input type="submit" value="Submit">	
-	
-			<g:each in="${animalList}" var="row" status="i">
-				<h3> ${row.nodeDescription}, ${row.yesAnswerNode}</h3>
-				<br/>
-			</g:each>		
-		-->
 		</g:form>		
 
 	</body>

@@ -9,7 +9,6 @@ class AnimaisController {
 
 		def curQuestion
 		def currentNode
-		def previousQuestions
 		def isFirstQuestion
 
 		previousNode = params.index
@@ -28,11 +27,19 @@ class AnimaisController {
 			isFirstQuestion = false;
 		}
 
+
+
+        log.info 'enviando pra view'
+        log.info params.previousQuestions
+        log.info animalsTreeObj.getClass()
+        log.info params.previousQuestions.getClass()
+
+
 		render(view: "show", model: [animalList: animalsTreeObj, 
 									 curIndex: currentNode, 
 									 curQuestion: curQuestion, 
 									 isFirstQuestion: isFirstQuestion,
-									 previousQuestions:previousQuestions])		
+									 previousQuestions: params.list('previousQuestions')])		
 	}
 	
 	def loadNextStep()
@@ -40,6 +47,7 @@ class AnimaisController {
 		def nextNode
 		def curNode = params.int('index')
 		def curQuestion
+		def previousQuestions
 /*
 		log.info "addNode - params"
 		log.info params
@@ -61,15 +69,22 @@ class AnimaisController {
 				def previousObj = session.getAttribute('traceability')
 //				log.info 'recuperando da sessao'
 //				log.info previousObj
-				def objReturned = animaisService.fillPreviousQuestions(curNode, userChoice, previousObj)
+				previousQuestions = animaisService.fillPreviousQuestions(curNode, userChoice, previousObj)
 				log.info 'gravando na sessao ' 
-				log.info objReturned
-				session.setAttribute('traceability', objReturned)
+				log.info previousQuestions
+				session.setAttribute('traceability', previousQuestions)
 
 			}
 
 			curQuestion = animaisService.mountQuestionByNodeInfo(nextNode)
-			forward(action:'index', params: ['curNode': nextNode.id, 'previousNode': curNode, curQuestion: curQuestion])			
+        log.info 'enviando pra index'
+        log.info previousQuestions
+        log.info previousQuestions.getClass()
+
+			forward(action:'index', params: ['curNode': nextNode.id,
+											 'previousNode': curNode, 
+											 'curQuestion': curQuestion,
+											'previousQuestions': previousQuestions])			
 		}
 		else
 		{

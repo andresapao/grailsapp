@@ -58,11 +58,9 @@ class AnimaisService {
         log.info obj        
 */
 
-    	previousQuestions.push('question':obj.nodeDescription, 'answer': getDescOptionAnswer(optionAnswered))
-/*
+    	previousQuestions.push(['question':obj.nodeDescription, 'answer': getDescOptionAnswer(optionAnswered)])
+
         log.info "retornando previousObj"
-        log.info previousQuestions
-*/
         return previousQuestions
     }
     def getDescOptionAnswer(answer)
