@@ -17,15 +17,24 @@
 			<g:submitButton class="btn btn-primary" name="loadNextStep" value="Próximo" />						
 			<g:actionSubmit class="btn btn-link" action="reset" value="Restaurar Padrões" />		
 			<g:if test="${previousQuestions}">
-				<div id="previousSteps">
-					<g:each in="${previousQuestions}" var="row" status="i">
-						<div>
-							<label>${row.question}</label>							
-							<label>${row.answer}</label>														
-						</div>
-						<br/>
-					</g:each>		
-				</div>
+				<br>
+				<br>
+				<div class="panel panel-default">
+				  <div class="panel-heading">Respostas Anteriores</div>
+				  <div class="panel-body">
+					<div id="previousSteps">
+						<g:each in="${previousQuestions}" var="row" status="i">
+							<ul class="list-group">
+							  <li class="list-group-item">
+							    <span class="badge">${row.answer}</span>
+							    ${row.question}
+							  </li>
+							</ul>
+						</g:each>		
+					</div>
+
+				  </div>
+				</div>				
 			</g:if>			
 
 		</g:form>		

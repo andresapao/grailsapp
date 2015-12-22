@@ -27,8 +27,6 @@ class AnimaisController {
 			isFirstQuestion = false;
 		}
 
-		log.info 'request'
-		log.info request.previousQuestions
 		render(view: "savedQuestions", model: [animalList: animalsTreeObj, 
 									 		   curIndex: currentNode, 
 									 		   curQuestion: curQuestion, 
@@ -95,10 +93,6 @@ class AnimaisController {
 
 	def submitFinalAnswer()
 	{
-/*
-		log.info 'finalAnswer'
-		log.info params
-*/
 		def previousAnimal = animaisService.getAnimalDesc(params.int('rootNode'))
 		def curQuestion = "Um(a) " + params.finalAnswer + " ______,  mas um(a) " + previousAnimal.nodeDescription + " não. "
 		render(view: "tipAnswer", model: [rootNode: params.int('rootNode'), curQuestion: curQuestion, 
