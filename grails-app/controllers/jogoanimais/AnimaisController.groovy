@@ -31,7 +31,7 @@ class AnimaisController {
 									 		   curIndex: currentNode, 
 									 		   curQuestion: curQuestion, 
 									 		   isFirstQuestion: isFirstQuestion,
-									 		   previousQuestions: request.previousQuestions])		
+									 		   previousQuestions: session.getAttribute('traceability')])		
 	}
 	
 	def loadNextStep()
@@ -59,8 +59,7 @@ class AnimaisController {
 
 			forward(action:'index', model: [curNode: nextNode.id,
 											previousNode: curNode, 
-											curQuestion: curQuestion,
-											previousQuestions: answersTrace])					
+											curQuestion: curQuestion])					
 		}
 		else
 		{
@@ -75,8 +74,7 @@ class AnimaisController {
 				curQuestion = "Em que animal voce pensou?"
 			}
 			answersTrace = saveTraceability(curNode, userChoice)
-			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode, finished: finished, 
-											     previousQuestions: answersTrace])
+			render(view: "lastQuestion", model: [curQuestion:curQuestion, rootNode: curNode, finished: finished])
 		}
 	}
 	def saveTraceability(curNode, userChoice)
